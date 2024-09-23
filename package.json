@@ -1,6 +1,6 @@
 {
   "name": "lazyhexa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "keywords": ["cli", "typescript", "nestjs", "hexagonal"],
   "author": "namatsawin<namatsawin.care@gmail.com>",

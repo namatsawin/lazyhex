@@ -1,6 +1,6 @@
 # LazyHexa
 
-LazyHexa is a CLI tool designed to simplify the generation of code following [Hexagonal Architecture in NestJS](https://github.com/Sairyss/domain-driven-hexagon). With support for creating modules, commands, and queries, LazyHexa automates repetitive tasks, helping you build scalable and maintainable applications faster.
+LazyHexa is a CLI tool designed to simplify the generation of code following [Hexagonal Architecture in NestJS](https://github.com/Sairyss/domain-driven-hexagon). Built on top of Plop.js, it supports creating modules, commands, and queries, automating repetitive tasks and helping you build scalable and maintainable applications faster.
 
 ### Features
 

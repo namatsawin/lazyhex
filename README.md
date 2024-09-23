@@ -10,6 +10,8 @@ LazyHexa is a CLI tool designed to simplify the generation of code following [He
 
 ### Installation
 
+To install LazyHexa as a development dependency in your project:
+
 ```
 npm install -D lazyhexa
 ```

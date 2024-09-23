@@ -31,8 +31,6 @@ export class Delete{{properCase name}}Service
 
         const entity = result.unwrap();
 
-        entity.delete();
-
         const deleteExpectation = entity.delete();
 
         if (deleteExpectation.isErr()) {

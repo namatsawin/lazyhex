@@ -1,19 +1,17 @@
-# LazyHex
+# LazyHexa
 
-LazyHex is a CLI tool designed to simplify the generation of code following [Hexagonal Architecture in NestJS](https://github.com/Sairyss/domain-driven-hexagon). With support for creating modules, commands, and queries, LazyHexNest automates repetitive tasks, helping you build scalable and maintainable applications faster.
+LazyHexa is a CLI tool designed to simplify the generation of code following [Hexagonal Architecture in NestJS](https://github.com/Sairyss/domain-driven-hexagon). With support for creating modules, commands, and queries, LazyHexa automates repetitive tasks, helping you build scalable and maintainable applications faster.
 
 ### Features
 
 - Generate NestJS modules with Hexagonal Architecture.
-- Automatically create commands, queries, entities, services, controllers, and more.
-- Supports CRUD operations: Create, Read (single and list), Update, Delete.
-- Option to skip file creation if files already exist.
-- Automatically add routes to your application if desired.
+- Automatically create `commands`, `queries`, `entities`, `services`, `controllers`, and more.
+- Supports CRUD operations: `Create`, `Read` (single and list), `Update`, `Delete`.
 
 ### Installation
 
 ```
-npm install -g lazyhexnest
+npm install -g lazyhexa
 ```
 
 ### Usage
@@ -23,39 +21,37 @@ npm install -g lazyhexnest
 To generate a module with the required files:
 
 ```
-npm lazyhex module
+npm lazyhexa module
 ```
 
 You'll be prompted for:
 
-- Module name: The name of your module.
-- Root path: The path where your modules are stored (default is src).
-- Skip if exists: Option to skip file creation if it already exists.
-- Auto-add route: Option to automatically add the module’s routes to app.routes.ts.
-- Generate a Command or Query
-- You can also generate a specific command or query for a module:
+- **Module name:** The name of your module.
+- **Root path:** The path where your modules are stored (default is `src`).
+- **Skip if exists:** Option to skip file creation if it already exists.
+- **Auto-add route:** Option to automatically add the module’s routes to `app.routes.ts`.
 
 ##### Generate a Command or Query
 
 You can also generate a specific command or query for a module:
 
 ```
-npm lazyhex operation
+npm lazyhexa operation
 ```
 
 You'll be prompted for:
 
-- Module name: The name of the module you want to add a command or query to.
-- Operation: Choose from create, update, delete, get, or getList.
-- Root path: The path where your modules are stored.
-- Skip if exists: Option to skip file creation if it already exists.
+- **Module name:** The name of the module you want to add a command or query to.
+- **Operation:** Choose from `create`, `update`, `delete`, `get`, or `getList`.
+- **Root path:** The path where your modules are stored (default is `src`).
+- **Skip if exists:** Option to skip file creation if it already exists.
 
 ##### Example
 
 To generate a module called `User`, run:
 
 ```
-npm lazyhex module
+npm lazyhexa module
 ```
 
 When prompted, enter `User` as the module name. This will generate the following structure:

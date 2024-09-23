@@ -1,11 +1,14 @@
 {
-  "name": "lazyhex",
+  "name": "lazyhexa",
   "version": "1.0.0",
   "main": "index.js",
-  "keywords": ["cli", "typescript", "nestjs", "hexagon"],
-  "author": "namatsawin buntarawa <namatsawin.care@gmail.com>",
-  "license": "ISC",
-  "description": "A lazy code generator for Hexagonal Architecture in NestJS.",
+  "keywords": ["cli", "typescript", "nestjs", "hexagonal"],
+  "author": "namatsawin<namatsawin.care@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "A code generator for Hexagonal Architecture in NestJS.",
   "dependencies": {
     "commander": "^12.1.0",
     "fs-extra": "^11.2.0",

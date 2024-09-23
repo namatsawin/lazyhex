@@ -11,7 +11,13 @@ LazyHexa is a CLI tool designed to simplify the generation of code following [He
 ### Installation
 
 ```
-npm install -g lazyhexa
+npm install -D lazyhexa
+```
+
+Alternatively, you can use npx to run LazyHexa without installation:
+
+```
+npx lazyhexa
 ```
 
 ### Usage
@@ -21,7 +27,7 @@ npm install -g lazyhexa
 To generate a module with the required files:
 
 ```
-npm lazyhexa module
+npm run lazyhexa module
 ```
 
 You'll be prompted for:
@@ -36,7 +42,7 @@ You'll be prompted for:
 You can also generate a specific command or query for a module:
 
 ```
-npm lazyhexa operation
+npm run lazyhexa operation
 ```
 
 You'll be prompted for:
@@ -51,7 +57,7 @@ You'll be prompted for:
 To generate a module called `User`, run:
 
 ```
-npm lazyhexa module
+npm run lazyhexa module
 ```
 
 When prompted, enter `User` as the module name. This will generate the following structure:

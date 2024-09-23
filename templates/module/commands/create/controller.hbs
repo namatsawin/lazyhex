@@ -1,0 +1,33 @@
+import { ApiTags } from '@nestjs/swagger';
+import { CommandBus } from '@nestjs/cqrs';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+
+import { routesV1 } from '@/configs/app.routes';
+
+import { Create{{properCase name}}Command } from '@/modules/{{dashCase name}}/commands/create-{{dashCase name}}/create-{{dashCase name}}.command'
+import { Create{{properCase name}}ServiceResponse } from '@/modules/{{dashCase name}}/commands/create-{{dashCase name}}/create-{{dashCase name}}.service';
+import { Create{{properCase name}}BodyDTO } from '@/modules/{{dashCase name}}/commands/create-{{dashCase name}}/create-{{dashCase name}}.request'
+
+@ApiTags(routesV1.{{camelCase name}}.root)
+@Controller(routesV1.version)
+export class Create{{properCase name}}Controller  {
+  constructor(private readonly commandBus: CommandBus) {}
+
+  @Post(routesV1.{{camelCase name}}.create)
+  @HttpCode(HttpStatus.CREATED)
+  async handler(@Body() body: Create{{properCase name}}BodyDTO) {
+    const command = new Create{{properCase name}}Command({ 
+      {{camelCase name}}: body
+    });
+    const response = await this.commandBus.execute<
+      Create{{properCase name}}Command,
+      Create{{properCase name}}ServiceResponse
+    >(command);
+
+    if (response.isErr()) {
+      throw response.unwrapErr();
+    }
+    
+    return response.unwrap()
+  }
+}

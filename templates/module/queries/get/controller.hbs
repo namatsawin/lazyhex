@@ -1,0 +1,40 @@
+import { ApiTags } from '@nestjs/swagger';
+import { QueryBus } from '@nestjs/cqrs';
+import { Param, Controller, HttpCode, HttpStatus, Get } from '@nestjs/common';
+import { HttpException } from '@nestjs/common/exceptions';
+
+import { NotFoundException } from '@/libs/exceptions';
+import { routesV1 } from '@/configs/app.routes';
+
+import { Get{{properCase name}}Query } from '@/modules/{{dashCase name}}/queries/get-{{dashCase name}}/get-{{dashCase name}}.query'
+import { Get{{properCase name}}ServiceResponse } from '@/modules/{{dashCase name}}/queries/get-{{dashCase name}}/get-{{dashCase name}}.service';
+
+@ApiTags(routesV1.{{camelCase name}}.root)
+@Controller(routesV1.version)
+export class Get{{properCase name}}Controller  {
+  constructor(private readonly queryBus: QueryBus) {}
+
+  @Get(routesV1.{{camelCase name}}.get)
+  @HttpCode(HttpStatus.OK)
+  async handler(
+    @Param('id') id: string
+  ) {
+    const command = new Get{{properCase name}}Query({ 
+      id
+    });
+    const response = await this.queryBus.execute<
+      Get{{properCase name}}Query,
+      Get{{properCase name}}ServiceResponse
+    >(command);
+
+    if (response.isErr()) {
+      const exception = response.unwrapErr();
+      if (exception instanceof NotFoundException) {
+        throw new HttpException(exception.message, HttpStatus.NOT_FOUND);
+      }
+      throw exception;
+    }
+    
+    return response.unwrap()
+  }
+}

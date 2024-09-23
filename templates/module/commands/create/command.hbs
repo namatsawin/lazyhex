@@ -1,0 +1,14 @@
+import { Command, CommandProps } from '@/libs/ddd/command.base';
+
+import { Create{{properCase name}}Props } from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.type';
+
+export class Create{{properCase name}}Command extends Command {
+
+  readonly {{camelCase name}}: Create{{properCase name}}Props
+
+  constructor(props: CommandProps<Create{{properCase name}}Command>) {
+    super(props);
+
+    this.{{camelCase name}} = props.{{camelCase name}}
+  }
+}

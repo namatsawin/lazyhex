@@ -1,0 +1,34 @@
+import { Module, Provider } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
+
+import { {{constantCase name}}_REPOSITORY } from '@/modules/{{dashCase name}}/{{dashCase name}}.di-token';
+import { {{properCase name}}Mapper } from '@/modules/{{dashCase name}}/{{dashCase name}}.mapper';
+import { {{properCase name}}Repository } from '@/modules/{{dashCase name}}/database/{{dashCase name}}.repository';
+
+
+const httpControllers: any[] = [];
+
+const messageControllers: Provider[] = [];
+
+const commandHandlers: Provider[] = [];
+
+const eventHandlers: Provider[] = [];
+
+const repositories: Provider[] = [
+  { provide: {{constantCase name}}_REPOSITORY, useClass: {{properCase name}}Repository },
+];
+
+const mappers: Provider[] = [{{properCase name}}Mapper];
+
+@Module({
+  imports: [],
+  providers: [
+    ...commandHandlers,
+    ...messageControllers,
+    ...repositories,
+    ...eventHandlers,
+    ...mappers,
+  ],
+  controllers: [...httpControllers],
+})
+export class {{properCase name}}Module {}

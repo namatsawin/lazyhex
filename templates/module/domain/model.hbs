@@ -1,0 +1,10 @@
+import { z } from 'zod';
+
+export const {{properCase name}}Schema = z.object({
+  id: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  deleted: z.boolean(),
+});
+
+export type {{properCase name}}Model = z.infer<typeof {{properCase name}}Schema>;

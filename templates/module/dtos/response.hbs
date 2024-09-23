@@ -1,0 +1,10 @@
+import { ResponseBase } from '@/libs/api/response.base';
+
+import { {{properCase name}}Entity } from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.entity';
+
+export class {{properCase name}}Response extends ResponseBase {
+  constructor(entity: {{properCase name}}Entity) {
+    const props = entity.getProps()
+    super(props)
+  }
+}

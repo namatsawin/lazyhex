@@ -1,0 +1,16 @@
+import { Command, CommandProps } from '@/libs/ddd/command.base';
+
+import { Update{{properCase name}}Props } from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.type';
+
+export class Update{{properCase name}}Command extends Command {
+
+  readonly {{camelCase name}}ID: string;
+  readonly {{camelCase name}}: Update{{properCase name}}Props;
+
+  constructor(props: CommandProps<Update{{properCase name}}Command>) {
+    super(props);
+
+    this.{{camelCase name}}ID = props.{{camelCase name}}ID
+    this.{{camelCase name}} = props.{{camelCase name}}
+  }
+}

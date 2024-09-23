@@ -1,0 +1,35 @@
+
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { Result, Ok } from 'oxide.ts';
+import { Inject } from '@nestjs/common';
+
+import { ExceptionBase } from '@/libs/exceptions';
+
+import { Create{{properCase name}}Command } from '@/modules/{{dashCase name}}/commands/create-{{dashCase name}}/create-{{dashCase name}}.command'
+import { {{constantCase name}}_REPOSITORY } from '@/modules/{{dashCase name}}/{{dashCase name}}.di-token';
+import { {{properCase name}}RepositoryPort } from '@/modules/{{dashCase name}}/database/{{dashCase name}}.repository.port';
+import { {{properCase name}}Entity } from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.entity';
+
+export type Create{{properCase name}}ServiceResponse = Result<string, ExceptionBase>;
+
+@CommandHandler(Create{{properCase name}}Command)
+export class Create{{properCase name}}Service 
+    implements ICommandHandler<
+        Create{{properCase name}}Command, 
+        Create{{properCase name}}ServiceResponse> {
+
+    constructor(
+        @Inject({{constantCase name}}_REPOSITORY)
+        private readonly repository: {{properCase name}}RepositoryPort
+    ) {}
+
+    public async execute(command: Create{{properCase name}}Command) {
+        const entity = {{properCase name}}Entity.create(command.{{camelCase name}});
+
+        await this.repository.transaction(async () => {
+            await this.repository.insert(entity);
+        });
+
+        return Ok(entity.id);
+    }
+}

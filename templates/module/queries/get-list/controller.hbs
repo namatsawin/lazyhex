@@ -1,0 +1,33 @@
+import { ApiTags } from '@nestjs/swagger';
+import { QueryBus } from '@nestjs/cqrs';
+import { Query, Controller, HttpCode, HttpStatus, Get } from '@nestjs/common';
+
+import { routesV1 } from '@/configs/app.routes';
+
+import { Get{{properCase name}}ListQuery } from '@/modules/{{dashCase name}}/queries/get-{{dashCase name}}-list/get-{{dashCase name}}-list.query'
+import { Get{{properCase name}}ListQueryDTO } from '@/modules/{{dashCase name}}/queries/get-{{dashCase name}}-list/get-{{dashCase name}}-list.request'
+import { Get{{properCase name}}ListServiceResponse } from '@/modules/{{dashCase name}}/queries/get-{{dashCase name}}-list/get-{{dashCase name}}-list.service';
+
+@ApiTags(routesV1.{{camelCase name}}.root)
+@Controller(routesV1.version)
+export class Get{{properCase name}}ListController  {
+  constructor(private readonly queryBus: QueryBus) {}
+
+  @Get(routesV1.{{camelCase name}}.getList)
+  @HttpCode(HttpStatus.OK)
+  async handler(
+    @Query() query: Get{{properCase name}}ListQueryDTO
+  ) {
+    const command = new Get{{properCase name}}ListQuery(query);
+    const response = await this.queryBus.execute<
+      Get{{properCase name}}ListQuery,
+      Get{{properCase name}}ListServiceResponse
+    >(command);
+
+    if (response.isErr()) {
+      throw response.unwrapErr();
+    }
+    
+    return response.unwrap()
+  }
+}

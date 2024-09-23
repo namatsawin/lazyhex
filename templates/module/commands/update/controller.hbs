@@ -1,0 +1,37 @@
+import { ApiTags } from '@nestjs/swagger';
+import { CommandBus } from '@nestjs/cqrs';
+import { Param, Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+
+import { routesV1 } from '@/configs/app.routes';
+
+import { Update{{properCase name}}Command } from '@/modules/{{dashCase name}}/commands/update-{{dashCase name}}/update-{{dashCase name}}.command'
+import { Update{{properCase name}}ServiceResponse } from '@/modules/{{dashCase name}}/commands/update-{{dashCase name}}/update-{{dashCase name}}.service';
+import { Update{{properCase name}}BodyDTO } from '@/modules/{{dashCase name}}/commands/update-{{dashCase name}}/update-{{dashCase name}}.request'
+
+@ApiTags(routesV1.{{camelCase name}}.root)
+@Controller(routesV1.version)
+export class Update{{properCase name}}Controller  {
+  constructor(private readonly commandBus: CommandBus) {}
+
+  @Post(routesV1.{{camelCase name}}.update)
+  @HttpCode(HttpStatus.OK)
+  async handler(
+    @Param('id') id: string,
+    @Body() body: Update{{properCase name}}BodyDTO
+  ) {
+    const command = new Update{{properCase name}}Command({ 
+      {{camelCase name}}ID: id,
+      {{camelCase name}}: body
+    });
+    const response = await this.commandBus.execute<
+      Update{{properCase name}}Command,
+      Update{{properCase name}}ServiceResponse
+    >(command);
+
+    if (response.isErr()) {
+      throw response.unwrapErr();
+    }
+    
+    return response.unwrap()
+  }
+}

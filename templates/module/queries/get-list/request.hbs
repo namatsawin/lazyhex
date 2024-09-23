@@ -1,0 +1,67 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import {
+  IsOptional,
+  IsString,
+  IsNumber,
+  IsPositive,
+  Min,
+} from 'class-validator';
+
+export class Get{{properCase name}}ListQueryDTO {
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Search Text',
+    example: '',
+    type: String,
+    required: false,
+  })
+  public readonly search!: string;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Page (Default. 1)',
+    example: 1,
+    type: Number,
+    required: false,
+  })
+  @Type(() => Number)
+  @IsPositive()
+  @Min(1)
+  public readonly page: number = 1;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Limit (Default. 100)',
+    example: 10,
+    type: Number,
+    required: false,
+  })
+  @Type(() => Number)
+  @IsPositive()
+  @Min(1)
+  public readonly limit: number = 100;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Sort By (Default. createdAt)',
+    example: 'createdAt',
+    type: String,
+    required: false,
+  })
+  public readonly sortBy: string = 'createdAt';
+
+  @IsOptional()
+  @ApiProperty({
+    description: "Sort Method. It should be 'asc' or 'desc' (Default. asc)",
+    example: 'asc',
+    type: String,
+    required: false,
+  })
+  @IsString()
+  public readonly sortMethod!: string
+}

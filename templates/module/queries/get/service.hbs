@@ -1,0 +1,43 @@
+
+import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
+import { Result, Ok, Err } from 'oxide.ts';
+import { Inject } from '@nestjs/common';
+
+import { ExceptionBase, NotFoundException } from '@/libs/exceptions';
+
+import { Get{{properCase name}}Query } from '@/modules/{{dashCase name}}/queries/get-{{dashCase name}}/get-{{dashCase name}}.query'
+import { {{constantCase name}}_REPOSITORY } from '@/modules/{{dashCase name}}/{{dashCase name}}.di-token';
+import { {{properCase name}}RepositoryPort } from '@/modules/{{dashCase name}}/database/{{dashCase name}}.repository.port';
+import { {{properCase name}}Mapper } from '@/modules/{{dashCase name}}/{{dashCase name}}.mapper';
+import { {{properCase name}}Response } from '@/modules/{{dashCase name}}/dtos/{{dashCase name}}.response'
+
+
+export type Get{{properCase name}}ServiceResponse = Result<{{properCase name}}Response, ExceptionBase>;
+
+@QueryHandler(Get{{properCase name}}Query)
+export class Get{{properCase name}}Service 
+    implements IQueryHandler<
+        Get{{properCase name}}Query, 
+        Get{{properCase name}}ServiceResponse> {
+
+    constructor(
+        @Inject({{constantCase name}}_REPOSITORY)
+        private readonly repository: {{properCase name}}RepositoryPort,
+
+        private readonly mapper: {{properCase name}}Mapper
+    ) {}
+
+    public async execute(query: Get{{properCase name}}Query) {
+        const result = await this.repository.findOneById(query.id);
+
+        if (result.isNone()) {
+            return Err(new NotFoundException('The {{lowerCase name}} could not be found.'));
+        }
+
+        const entity = result.unwrap();
+
+        const response = this.mapper.toResponse(entity)
+
+        return Ok(response);
+    }
+}

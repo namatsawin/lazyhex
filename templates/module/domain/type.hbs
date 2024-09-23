@@ -1,0 +1,10 @@
+import { {{properCase name}}Model } from './{{dashCase name}}.model';
+
+export type {{properCase name}}Props = Omit<
+  {{properCase name}}Model,
+  'id' | 'createdAt' | 'updatedAt' | 'deleted'
+>;
+
+export type Create{{properCase name}}Props = Omit<{{properCase name}}Props, 'state'>;
+
+export type Update{{properCase name}}Props = Create{{properCase name}}Props;

@@ -1,0 +1,16 @@
+export class Get{{properCase name}}ListQuery {
+
+  readonly search!: string;
+  readonly page!: number;
+  readonly limit!: number;
+  readonly sortBy!: string;
+  readonly sortMethod!: string;
+
+  constructor(props: Get{{properCase name}}ListQuery) {
+    this.search = props.search
+    this.page = props.page
+    this.limit = props.limit
+    this.sortBy = props.sortBy
+    this.sortMethod = props.sortMethod
+  }
+}

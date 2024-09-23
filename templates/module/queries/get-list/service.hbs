@@ -1,0 +1,42 @@
+
+import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
+import { Result, Ok } from 'oxide.ts';
+import { Inject } from '@nestjs/common';
+
+import { ExceptionBase } from '@/libs/exceptions';
+
+import { Get{{properCase name}}ListQuery } from '@/modules/{{dashCase name}}/queries/get-{{dashCase name}}-list/get-{{dashCase name}}-list.query'
+import { {{constantCase name}}_REPOSITORY } from '@/modules/{{dashCase name}}/{{dashCase name}}.di-token';
+import { {{properCase name}}RepositoryPort } from '@/modules/{{dashCase name}}/database/{{dashCase name}}.repository.port';
+import { {{properCase name}}Mapper } from '@/modules/{{dashCase name}}/{{dashCase name}}.mapper';
+import { Get{{properCase name}}ListResponse } from '@/modules/{{dashCase name}}/queries/get-{{dashCase name}}-list/get-{{dashCase name}}-list.response'
+
+export type Get{{properCase name}}ListServiceResponse = Result<Get{{properCase name}}ListResponse, ExceptionBase>;
+
+@QueryHandler(Get{{properCase name}}ListQuery)
+export class Get{{properCase name}}ListService 
+    implements IQueryHandler<
+        Get{{properCase name}}ListQuery, 
+        Get{{properCase name}}ListServiceResponse> {
+
+    constructor(
+        @Inject({{constantCase name}}_REPOSITORY)
+        private readonly repository: {{properCase name}}RepositoryPort,
+
+        private readonly mapper: {{properCase name}}Mapper
+    ) {}
+
+    public async execute(query: Get{{properCase name}}ListQuery) {
+        // const { items, total } = await this.repository.getList(command);
+
+        // return Ok({
+        //    items: items.map(this.mapper.toResponse),
+        //    total,
+        // });
+
+        return Ok({
+            items: [],
+            total: 0
+        })
+    }
+}

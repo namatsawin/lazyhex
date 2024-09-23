@@ -1,0 +1,28 @@
+import mongoose from 'mongoose';
+import { Injectable, Logger } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { InjectConnection } from '@nestjs/mongoose';
+
+import { MongoDBRepositoryBase } from '@/libs/db/mongodb-repository.base';
+import { {{properCase name}}RepositoryPort } from '@/modules/{{dashCase name}}/database/{{dashCase name}}.repository.port';
+import { {{properCase name}}Entity } from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.entity';
+import { {{properCase name}}Model } from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.model';
+import { {{properCase name}}Mapper } from '@/modules/{{dashCase name}}/{{dashCase name}}.mapper';
+
+@Injectable()
+export class {{properCase name}}Repository
+  extends MongoDBRepositoryBase<{{properCase name}}Entity, {{properCase name}}Model>
+  implements {{properCase name}}RepositoryPort
+{
+  readonly collectionName: string = '{{snakeCase name}}';
+
+  constructor(
+    @InjectConnection('primary') db: mongoose.Connection,
+    @InjectConnection('readReplica')
+    protected dbReadReplica: mongoose.Connection,
+    mapper: {{properCase name}}Mapper,
+    eventEmitter: EventEmitter2,
+  ) {
+    super(db, mapper, eventEmitter, new Logger({{properCase name}}Repository.name));
+  }
+}

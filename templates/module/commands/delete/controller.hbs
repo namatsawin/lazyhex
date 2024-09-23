@@ -1,0 +1,40 @@
+import { ApiTags } from '@nestjs/swagger';
+import { CommandBus } from '@nestjs/cqrs';
+import { Param, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { HttpException } from '@nestjs/common/exceptions';
+
+import { NotFoundException } from '@/libs/exceptions';
+import { routesV1 } from '@/configs/app.routes';
+
+import { Delete{{properCase name}}Command } from '@/modules/{{dashCase name}}/commands/delete-{{dashCase name}}/delete-{{dashCase name}}.command'
+import { Delete{{properCase name}}ServiceResponse } from '@/modules/{{dashCase name}}/commands/delete-{{dashCase name}}/delete-{{dashCase name}}.service';
+
+@ApiTags(routesV1.{{camelCase name}}.root)
+@Controller(routesV1.version)
+export class Delete{{properCase name}}Controller  {
+  constructor(private readonly commandBus: CommandBus) {}
+
+  @Post(routesV1.{{camelCase name}}.delete)
+  @HttpCode(HttpStatus.OK)
+  async handler(
+    @Param('id') id: string
+  ) {
+    const command = new Delete{{properCase name}}Command({ 
+      {{camelCase name}}ID: id
+    });
+    const response = await this.commandBus.execute<
+      Delete{{properCase name}}Command,
+      Delete{{properCase name}}ServiceResponse
+    >(command);
+
+    if (response.isErr()) {
+      const exception = response.unwrapErr();
+      if (exception instanceof NotFoundException) {
+        throw new HttpException(exception.message, HttpStatus.NOT_FOUND);
+      }
+      throw exception;
+    }
+    
+    return response.unwrap()
+  }
+}

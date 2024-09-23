@@ -1,0 +1,16 @@
+{
+  "name": "lazyhex",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": ["cli", "typescript", "nestjs", "hexagon"],
+  "author": "namatsawin buntarawa <namatsawin.care@gmail.com>",
+  "license": "ISC",
+  "description": "A lazy code generator for Hexagonal Architecture in NestJS.",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^11.0.2",
+    "plop": "^4.0.1"
+  },
+  "bin": "index.js"
+}

@@ -1,0 +1,50 @@
+import * as crypto from 'crypto';
+import { Result, Err, Ok } from 'oxide.ts';
+import { ExceptionBase, ConflictException } from '@/libs/exceptions';
+
+import { AggregateRoot } from '@/libs/ddd/aggregate-root.base';
+import { AggregateID } from '@/libs/ddd/entity.base';
+
+import { {{properCase name}}Props, Create{{properCase name}}Props } from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.type';
+
+export class {{properCase name}}Entity extends AggregateRoot<{{properCase name}}Props> {
+  protected readonly _id!: AggregateID;
+
+  public static create(payload: Create{{properCase name}}Props): {{properCase name}}Entity {
+    const id = crypto.randomUUID();
+    const now = new Date();
+
+    const entity = new {{properCase name}}Entity({
+      id,
+      createdAt: now,
+      updatedAt: now,
+      props: {
+        ...payload,
+        deleted: false,
+      },
+    });
+
+    return entity;
+  }
+
+  public update(props: Partial<{{properCase name}}Props>): void {
+    for (const key of Object.keys(props)) {
+      const k = key as keyof {{properCase name}}Props;
+      (this.props as { [key: string]: any })[k] = props[k];
+    }
+  }
+
+  public delete(): Result<boolean, ExceptionBase> {
+    const props = this.getProps();
+
+    if (props.deleted) {
+      return Err(new ConflictException('The {{lowerCase name}} has been already deleted.'));
+    }
+
+    this.update({ deleted: true })
+
+    return Ok(true)
+  }
+
+  public validate() {}
+}

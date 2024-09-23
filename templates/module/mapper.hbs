@@ -1,0 +1,44 @@
+import { Injectable } from '@nestjs/common';
+
+import { Mapper } from '@/libs/ddd/mapper.interface';
+import { {{properCase name}}Entity } from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.entity';
+import { 
+  {{properCase name}}Schema, 
+  {{properCase name}}Model 
+} from '@/modules/{{dashCase name}}/domain/{{dashCase name}}.model';
+import { {{properCase name}}Response } from '@/modules/{{dashCase name}}/dtos/{{dashCase name}}.response'
+
+@Injectable()
+export class {{properCase name}}Mapper
+  implements Mapper<{{properCase name}}Entity, {{properCase name}}Model, {{properCase name}}Response>
+{
+  toPersistence(entity: {{properCase name}}Entity): {{properCase name}}Model {
+    const copy = entity.getProps();
+    const record: {{properCase name}}Model = {
+      id: copy.id,
+      createdAt: copy.createdAt,
+      updatedAt: copy.updatedAt,
+    };
+    const { success, error } = {{properCase name}}Schema.safeParse(record);
+    if (!success) {
+      throw new Error(error.message);
+    }
+
+    return record;
+  }
+
+  toDomain(record: {{properCase name}}Model): {{properCase name}}Entity {
+    const entity = new {{properCase name}}Entity({
+      id: record.id,
+      createdAt: record.createdAt,
+      updatedAt: record.updatedAt,
+      props: {},
+    });
+    return entity;
+  }
+
+  toResponse(entity: {{properCase name}}Entity): {{properCase name}}Response {
+    const response = new {{properCase name}}Response(entity)
+    return response;
+  }
+}

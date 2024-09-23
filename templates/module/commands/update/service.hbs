@@ -1,0 +1,42 @@
+
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { Result, Err, Ok } from 'oxide.ts';
+import { Inject } from '@nestjs/common';
+
+import { ExceptionBase, NotFoundException } from '@/libs/exceptions';
+
+import { Update{{properCase name}}Command } from '@/modules/{{dashCase name}}/commands/update-{{dashCase name}}/update-{{dashCase name}}.command'
+import { {{constantCase name}}_REPOSITORY } from '@/modules/{{dashCase name}}/{{dashCase name}}.di-token';
+import { {{properCase name}}RepositoryPort } from '@/modules/{{dashCase name}}/database/{{dashCase name}}.repository.port';
+
+export type Update{{properCase name}}ServiceResponse = Result<string, ExceptionBase>;
+
+@CommandHandler(Update{{properCase name}}Command)
+export class Update{{properCase name}}Service 
+    implements ICommandHandler<
+        Update{{properCase name}}Command, 
+        Update{{properCase name}}ServiceResponse> {
+
+    constructor(
+        @Inject({{constantCase name}}_REPOSITORY)
+        private readonly repository: {{properCase name}}RepositoryPort
+    ) {}
+
+    public async execute(command: Update{{properCase name}}Command) {
+        const result = await this.repository.findOneById(command.{{camelCase name}}ID);
+
+        if (result.isNone()) {
+            return Err(new NotFoundException('The {{lowerCase name}} could not be found.'));
+        }
+
+        const entity = result.unwrap();
+
+        entity.update(command.{{camelCase name}});
+
+        await this.repository.transaction(async () => {
+            await this.repository.update(entity);
+        });
+
+        return Ok(entity.id);
+    }
+}

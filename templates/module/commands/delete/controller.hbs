@@ -1,6 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
-import { Param, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Param, Controller, HttpCode, HttpStatus, Delete } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions';
 
 import { NotFoundException } from '@/libs/exceptions';
@@ -14,7 +14,7 @@ import { Delete{{properCase name}}ServiceResponse } from '@/modules/{{dashCase n
 export class Delete{{properCase name}}Controller  {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @Post(routesV1.{{camelCase name}}.delete)
+  @Delete(routesV1.{{camelCase name}}.delete)
   @HttpCode(HttpStatus.OK)
   async handler(
     @Param('id') id: string

@@ -17,7 +17,8 @@ export class {{properCase name}}Mapper
     const record: {{properCase name}}Model = {
       id: copy.id,
       createdAt: copy.createdAt,
-      updatedAt: copy.updatedAt,
+      updatedAt: new Date(),
+      deleted: copy.deleted,
     };
     const { success, error } = {{properCase name}}Schema.safeParse(record);
     if (!success) {
@@ -32,7 +33,9 @@ export class {{properCase name}}Mapper
       id: record.id,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
-      props: {},
+      props: {
+        deleted: record.deleted,
+      },
     });
     return entity;
   }

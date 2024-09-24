@@ -2,7 +2,7 @@ import { {{properCase name}}Model } from './{{dashCase name}}.model';
 
 export type {{properCase name}}Props = Omit<
   {{properCase name}}Model,
-  'id' | 'createdAt' | 'updatedAt' | 'deleted'
+  'id' | 'createdAt' | 'updatedAt'
 >;
 
 export type Create{{properCase name}}Props = Omit<{{properCase name}}Props, 'state'>;
